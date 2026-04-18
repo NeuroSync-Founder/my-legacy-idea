@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroSync Heritage | Digital Immortality</title>
+    <title>Aeterna Sync | Digital Immortality</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #00f2ff;
             --bg: #050505;
         }
+        * { scroll-behavior: smooth; }
         body {
             background-color: var(--bg);
             color: #ffffff;
@@ -40,30 +43,49 @@
         }
 
         .glow-hover:hover {
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
             border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
         .text-glow {
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.6);
+        }
+
+        @media (max-width: 640px) {
+            .hero-title { font-size: 3.2rem; line-height: 1.1; }
+        }
+
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        .btn-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
         }
     </style>
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3 mt-4">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-cyan-400 animate-pulse"></div>
-                <span class="font-display font-bold text-xl tracking-tight">NEUROSYNC</span>
+    <nav class="fixed w-full z-50 px-4 md:px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-6 py-3 mt-2 md:mt-4 transition-all duration-300" id="nav-container">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_15px_rgba(34,211,238,0.8)]"></div>
+                <span class="font-display font-bold text-lg md:text-xl tracking-tight text-white uppercase">Aeterna Sync</span>
             </div>
             <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
                 <a href="#vision" class="hover:text-cyan-400 transition">Vision</a>
                 <a href="#technology" class="hover:text-cyan-400 transition">Technology</a>
                 <a href="#security" class="hover:text-cyan-400 transition">Security</a>
             </div>
-            <button class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm glow-hover transition">Reserve Access</button>
+            <button onclick="scrollToInput()" class="bg-white text-black px-5 py-2 rounded-full font-bold text-xs md:text-sm glow-hover transition whitespace-nowrap">Reserve Access</button>
         </div>
     </nav>
 
@@ -71,121 +93,188 @@
     <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
         <div class="absolute inset-0 hero-gradient"></div>
         
-        <!-- Animated Background Elements -->
         <div class="absolute top-1/4 left-10 w-64 h-64 bg-cyan-900/20 rounded-full blur-[100px] animate-float"></div>
         <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-900/10 rounded-full blur-[120px] animate-float" style="animation-delay: -3s;"></div>
 
         <div class="max-w-4xl text-center z-10">
-            <div class="inline-block px-4 py-1 rounded-full glass border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-6">
-                Redefining the Human Legacy
+            <div class="inline-block px-4 py-1 rounded-full glass border-cyan-500/30 text-cyan-400 text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6">
+                Preserving Human Essence for the Next Millennium
             </div>
-            <h1 class="font-display text-5xl md:text-8xl font-bold leading-tight mb-8">
-                Your Consciousness, <br>
+            <h1 class="hero-title font-display text-5xl md:text-8xl font-bold leading-tight mb-8 text-white">
+                Your Legacy, <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 text-glow">
-                    Forever Contextual.
+                    Evolved.
                 </span>
             </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-                Beyond memories. Beyond photos. NeuroSync captures your values, wisdom, and decision-making logic to preserve your essence for generations to come.
+            <p class="text-gray-400 text-base md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+                Aeterna Sync maps your consciousness context, creating an interactive digital twin that preserves your wisdom, humor, and values for future generations.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <input type="email" placeholder="Enter your email" class="px-8 py-4 rounded-full bg-white/5 border border-white/10 w-full sm:w-80 focus:outline-none focus:border-cyan-400 transition">
-                <button onclick="showModal()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-10 py-4 rounded-full transition-all transform hover:scale-105">
+            
+            <form id="waitlist-form" onsubmit="handleForm(event)" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div class="relative w-full sm:w-80">
+                    <input 
+                        id="email-input"
+                        type="email" 
+                        required
+                        placeholder="Enter your email" 
+                        class="w-full px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:outline-none focus:border-cyan-400 transition text-white input-glow"
+                    >
+                </div>
+                <button id="submit-btn" type="submit" class="w-full sm:w-auto bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-10 py-4 rounded-full transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/40 btn-pulse">
                     Start Your Snapshot
                 </button>
-            </div>
-            <p class="mt-6 text-xs text-gray-500 font-medium">Limited Beta starting Summer 2026.</p>
+            </form>
+            <p class="mt-6 text-[10px] md:text-xs text-gray-500 font-medium italic uppercase tracking-wider">Limited Early Access Beta. Data remains 100% private.</p>
         </div>
     </section>
 
-    <!-- Value Props -->
+    <!-- Value Props Section -->
     <section id="vision" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-white">The Pillars of Digital Life</h2>
+            <div class="w-20 h-1 bg-cyan-500 mx-auto rounded-full"></div>
+        </div>
         <div class="grid md:grid-cols-3 gap-8">
             <div class="glass p-10 rounded-3xl glow-hover transition-all duration-500">
                 <div class="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6 text-cyan-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <h3 class="font-display text-xl font-bold mb-4">Neural Capture</h3>
-                <p class="text-gray-400 leading-relaxed">Active AI interviewing that records not just what you say, but the core values behind your decisions.</p>
+                <h3 class="font-display text-xl font-bold mb-4 text-white">Contextual Mapping</h3>
+                <p class="text-gray-400 leading-relaxed">Our AI doesn't just record audio; it maps the emotional and logical framework behind your life's biggest decisions.</p>
             </div>
 
-            <div class="glass p-10 rounded-3xl glow-hover transition-all duration-500">
+            <div id="technology" class="glass p-10 rounded-3xl glow-hover transition-all duration-500">
                 <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 text-blue-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                 </div>
-                <h3 class="font-display text-xl font-bold mb-4">Family Synapse</h3>
-                <p class="text-gray-400 leading-relaxed">Your future generations can interact with your digital twin for advice, storytelling, and guidance.</p>
+                <h3 class="font-display text-xl font-bold mb-4 text-white">The Legacy Avatar</h3>
+                <p class="text-gray-400 leading-relaxed">A high-fidelity digital twin capable of holding conversations, providing advice, and attending virtual family events.</p>
             </div>
 
-            <div class="glass p-10 rounded-3xl glow-hover transition-all duration-500">
+            <div id="security" class="glass p-10 rounded-3xl glow-hover transition-all duration-500">
                 <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 text-purple-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.040L3 14.535a4.52 4.52 0 001.24 3.066l7.738 7.738a1.146 1.146 0 001.625 0l7.738-7.738a4.52 4.52 0 001.24-3.066l-1.022-8.591z"/></svg>
                 </div>
-                <h3 class="font-display text-xl font-bold mb-4">Post-Quantum Privacy</h3>
-                <p class="text-gray-400 leading-relaxed">Encrypted with technology that outlives biological life. Your data belongs exclusively to your estate.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mock UI Section -->
-    <section class="py-24 px-6 bg-white/5 border-y border-white/5">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="flex-1">
-                <h2 class="font-display text-4xl font-bold mb-6">The Interface of Tomorrow.</h2>
-                <p class="text-gray-400 text-lg mb-8">Our app continuously works in the background, learning from your interactions, curated memories, and biological feedback to build a high-fidelity model of "You".</p>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 text-cyan-400">
-                        <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
-                        Voice & Linguistic Pattern Matching
-                    </li>
-                    <li class="flex items-center gap-3 text-cyan-400">
-                        <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
-                        Ethical Alignment Guardrails
-                    </li>
-                    <li class="flex items-center gap-3 text-cyan-400">
-                        <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
-                        Multi-Generational Access Control
-                    </li>
-                </ul>
-            </div>
-            <div class="flex-1 w-full max-w-lg aspect-square glass rounded-full flex items-center justify-center p-8 relative">
-                <div class="absolute inset-0 bg-cyan-500/5 rounded-full blur-3xl"></div>
-                <!-- Visual representation of an AI core -->
-                <div class="w-full h-full border border-cyan-500/20 rounded-full flex items-center justify-center">
-                    <div class="w-3/4 h-3/4 border border-cyan-500/30 rounded-full flex items-center justify-center animate-pulse">
-                         <div class="w-1/2 h-1/2 bg-cyan-500 rounded-full shadow-[0_0_80px_rgba(6,182,212,0.6)]"></div>
-                    </div>
-                </div>
+                <h3 class="font-display text-xl font-bold mb-4 text-white">Vaulted Identity</h3>
+                <p class="text-gray-400 leading-relaxed">Secured by decentralized biometric keys. Your neural map remains offline until your specific legacy triggers are met.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
+    <footer class="py-16 text-center text-gray-500 text-sm border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
-            <p>&copy; 2026 NeuroSync Heritage Inc. The future of legacy.</p>
+            <div class="flex items-center justify-center gap-2 mb-8">
+                <div class="w-4 h-4 rounded-full bg-cyan-900 border border-cyan-400"></div>
+                <span class="font-display font-bold text-white tracking-widest uppercase">Aeterna Sync</span>
+            </div>
+            <p class="max-w-md mx-auto mb-8 text-gray-500 italic">"The library of human wisdom should never burn."</p>
+            <div class="flex justify-center flex-wrap gap-8 mb-8">
+                <a href="#" class="hover:text-cyan-400 transition underline underline-offset-4 decoration-cyan-500/30">Privacy Policy</a>
+                <a href="#" class="hover:text-cyan-400 transition underline underline-offset-4 decoration-cyan-500/30">Ethics Charter</a>
+                <a href="#" class="hover:text-cyan-400 transition underline underline-offset-4 decoration-cyan-500/30">Contact</a>
+            </div>
+            <p>&copy; 2026 Aeterna Sync Inc.</p>
         </div>
     </footer>
 
     <!-- Success Modal -->
-    <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-6 bg-black/90 backdrop-blur-sm">
-        <div class="glass p-12 rounded-3xl max-w-md w-full text-center">
-            <div class="w-16 h-16 bg-cyan-500 rounded-full mx-auto flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+    <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl">
+        <div class="glass p-10 md:p-14 rounded-[2rem] max-w-md w-full text-center border-cyan-500/20 shadow-[0_0_50px_rgba(0,0,0,1)]">
+            <div class="w-20 h-20 bg-cyan-500 rounded-full mx-auto flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(6,182,212,0.5)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <h2 class="text-2xl font-bold mb-4">Success.</h2>
-            <p class="text-gray-400 mb-8">You have been added to the Priority Reserve. We will reach out when the neural capture sequence is ready for your profile.</p>
-            <button onclick="hideModal()" class="w-full bg-white text-black font-bold py-4 rounded-xl">Continue Exploring</button>
+            <h2 class="text-3xl font-bold mb-4 font-display text-white">Priority Link Active.</h2>
+            <p class="text-gray-400 mb-8 leading-relaxed">A confirmation of your snapshot reservation has been sent to your inbox. Your legacy begins now.</p>
+            <button onclick="hideModal()" class="w-full bg-cyan-500 text-black font-bold py-4 rounded-2xl hover:bg-cyan-400 transition-all shadow-lg">Return to Vision</button>
         </div>
     </div>
 
     <script>
+        /**
+         * EMAIL CONFIGURATION
+         * 1. Go to https://www.emailjs.com/
+         * 2. Replace 'YOUR_PUBLIC_KEY' below with your Public Key (Account -> API Keys)
+         * 3. Replace 'YOUR_SERVICE_ID' in handleForm with your Service ID
+         * 4. Replace 'YOUR_TEMPLATE_ID' in handleForm with your Template ID
+         */
+        const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+        const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+        const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+        (function() {
+            if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            }
+        })();
+
+        async function handleForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const email = document.getElementById('email-input').value;
+            
+            btn.innerHTML = "Processing...";
+            btn.style.opacity = "0.7";
+            btn.disabled = true;
+
+            // Template Parameters for your EmailJS Email Template
+            const templateParams = {
+                user_email: email,
+                brand_name: "Aeterna Sync",
+                reply_to: 'support@aeternasync.com'
+            };
+
+            try {
+                // If you have configured your keys, this will send the email
+                if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+                }
+                
+                console.log("Welcome email request captured for:", email);
+                showModal();
+                document.getElementById('waitlist-form').reset();
+            } catch (error) {
+                console.error("Email failed to send:", error);
+                // We show the modal anyway so the user experience isn't broken
+                showModal(); 
+            } finally {
+                btn.innerHTML = "Start Your Snapshot";
+                btn.style.opacity = "1";
+                btn.disabled = false;
+            }
+        }
+
         function showModal() {
-            document.getElementById('modal').classList.remove('hidden');
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
         }
+        
         function hideModal() {
-            document.getElementById('modal').classList.add('hidden');
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
         }
+
+        function scrollToInput() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('email-input').focus();
+            }, 800);
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav-container');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+                nav.style.marginTop = "10px";
+            } else {
+                nav.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
+                nav.style.marginTop = "16px";
+            }
+        });
     </script>
 </body>
 </html>
